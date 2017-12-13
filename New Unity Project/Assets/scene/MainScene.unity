@@ -1137,7 +1137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Joystick: {fileID: 2093570570}
-  Speed: 5
+  Speed: 3
+  JumpSpeed: 2
   RotateSpeed: 10
   JumpHeight: 8
   PlayerGravity: 20
@@ -1757,7 +1758,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 404432507}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 212, y: 132.5, z: 0}
+  m_LocalPosition: {x: 218.5, y: 136.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2093570569}
@@ -3063,7 +3064,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 923507051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 193, y: -132.5, z: 0}
+  m_LocalPosition: {x: 199.5, y: -136.5, z: 0}
   m_LocalScale: {x: 0.87, y: 0.86999995, z: 0.86999995}
   m_Children:
   - {fileID: 651014158}
@@ -7362,7 +7363,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2093570568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -196.999, y: -117.499, z: 0}
+  m_LocalPosition: {x: -203.499, y: -121.499, z: 0}
   m_LocalScale: {x: 0.69998556, y: 0.69998616, z: 0.69998616}
   m_Children:
   - {fileID: 158929733}

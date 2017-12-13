@@ -66,14 +66,7 @@ public class joystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPointerDow
             return Input.GetAxis("Vertical");
     }
 
-    public float Rotation()
-    {
-        float rotation;
-
-        rotation = Mathf.Atan2(InputVector.x ,InputVector.z)*57.3648f;
-        Debug.Log(rotation);
-        return rotation;
-    }
+    
 
 
 }

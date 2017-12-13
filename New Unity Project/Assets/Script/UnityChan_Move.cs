@@ -10,6 +10,8 @@ public class UnityChan_Move : MonoBehaviour {
     private Rigidbody rigi;
     private CapsuleCollider PlayerCollider;
     public float Speed;
+    public float JumpSpeed;
+    private int Jump1;
     public float RotateSpeed;
     public float JumpHeight;
     public float PlayerGravity;
@@ -22,8 +24,8 @@ public class UnityChan_Move : MonoBehaviour {
         anim = GetComponent<Animator>();
         rigi = GetComponent<Rigidbody>();
         PlayerCollider = GetComponent<CapsuleCollider>();
+        FloorMask = LayerMask.GetMask("Floor");
         distToGround = PlayerCollider.bounds.extents.y;
-        FloorMask= LayerMask.GetMask("Floor");
         Physics.gravity = new Vector3(0,-(PlayerGravity), 0);
     }
         // Update is called once per frame
@@ -31,8 +33,8 @@ public class UnityChan_Move : MonoBehaviour {
 
         float x = Joystick.Horizontal();
         float z = Joystick.Vertical();
-       
-        if(Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f, FloorMask))
+
+        if (Physics.Raycast(transform.position, -Vector3.up, distToGround , FloorMask))
         {
             IsGrounded = true;
             Debug.Log("Grounded");
@@ -41,31 +43,47 @@ public class UnityChan_Move : MonoBehaviour {
             {
                 rigi.AddForce(0, JumpHeight, 0, ForceMode.Impulse);
             }
-
+            Turning();
+            move(x, z);
         }
-        else IsGrounded = false;
-
-
-
-        move(x, z);
+        else
+        {
+            IsGrounded = false;
+            move(x, z);
+        }
         
     }
 
     private void move(float x,float z)
     {
+        if (IsGrounded == false)
+            Speed = JumpSpeed;
         movement.Set(x, 0, z);
         movement = movement * Speed * Time.deltaTime;
         rigi.MovePosition(transform.position + movement);
         
     }
-    public void Jump()
+    private void Turning()
     {
+        Quaternion newRotation;
+        Vector3 LookAtPoint;
+        if (movement!=new Vector3(0, 0, 0))
+        {
+            LookAtPoint = movement;
+            newRotation = Quaternion.LookRotation(LookAtPoint);
+            rigi.MoveRotation(newRotation);
+        }
+       
+    }
+    public void Jump()
+    {    
         if (IsGrounded)
         {
             Debug.Log("Jump");
-
             rigi.AddForce(0, JumpHeight, 0, ForceMode.Impulse);
+          
         }
+
 
     }
 }
