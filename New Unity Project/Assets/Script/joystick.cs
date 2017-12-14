@@ -8,7 +8,7 @@ public class joystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPointerDow
 
     private Image BGImage;
     private Image Joystick;
-    private Vector3 InputVector;
+    public Vector3 InputVector;
 
 
 	// Use this for initialization
@@ -41,6 +41,7 @@ public class joystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPointerDow
 
             InputVector = new Vector3(pos.x * 2 - 1, 0, pos.y * 2 - 1);
             InputVector = (InputVector.magnitude > 1.0f) ? InputVector.normalized : InputVector;
+
             Debug.Log(InputVector);
 
             Joystick.rectTransform.anchoredPosition = new Vector3(InputVector.x * (BGImage.rectTransform.sizeDelta.x / 3)
@@ -67,6 +68,4 @@ public class joystick : MonoBehaviour,IDragHandler,IPointerUpHandler,IPointerDow
     }
 
     
-
-
 }
