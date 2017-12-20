@@ -10,15 +10,15 @@ public class UnityChan_Move : MonoBehaviour
     private Rigidbody rigi;
     private CapsuleCollider PlayerCollider;
     private Animator PlayerAC;
+    public Vector3 LookAtPoint;
     public float Speed;
     public float JumpSpeed;
     public float JumpHeight;
     public float DoubleJumpHeight;
     public float PlayerGravity;
     private int JumpCount;
-    private bool DoubleJump;
-    private bool Jump1;
-    
+    private bool IsJumping;     
+
     bool IsGrounded = false;
     float distToGround;
     int FloorMask;
@@ -31,7 +31,7 @@ public class UnityChan_Move : MonoBehaviour
         FloorMask = LayerMask.GetMask("Floor");
         distToGround = PlayerCollider.bounds.extents.y;
         Physics.gravity = new Vector3(0, -(PlayerGravity), 0);
-        DoubleJump = false;
+        
 
     }
     // Update is called once per frame
@@ -41,12 +41,15 @@ public class UnityChan_Move : MonoBehaviour
         float x = Joystick.Horizontal();
         float z = Joystick.Vertical();
 
+        
+
         if (Physics.Raycast(transform.position, -Vector3.up, distToGround - 0.7f, FloorMask))
         {
             Debug.Log(distToGround);
             IsGrounded = true;
             JumpCount = 1;
-            Jump1 = DoubleJump = false;
+            IsJumping = false;
+
             Debug.Log("Grounded");
             move(x, z);
             Turning();
@@ -61,7 +64,8 @@ public class UnityChan_Move : MonoBehaviour
             Turning();
         }
 
-        Jump_Animation();
+        if (Input.GetKeyDown(KeyCode.Space)) { Jump(); }
+        
 
     }
 
@@ -89,7 +93,7 @@ public class UnityChan_Move : MonoBehaviour
     private void Turning()
     {
         Quaternion newRotation;
-        Vector3 LookAtPoint;
+        
         if (movement != new Vector3(0, 0, 0))
         {
             LookAtPoint = movement;
@@ -105,9 +109,9 @@ public class UnityChan_Move : MonoBehaviour
         {
             Debug.Log("Jump");
             rigi.AddForce(0, JumpHeight, 0, ForceMode.Impulse);
-          
-            Jump1 = true;
-
+            IsJumping = true;
+           
+            //-------------Animation-----------------
             PlayerAC.SetBool("Jump", true);
         }
         else if ((!IsGrounded && JumpCount == 1))
@@ -118,10 +122,9 @@ public class UnityChan_Move : MonoBehaviour
             rigi.AddForce(0, DoubleJumpHeight, 0, ForceMode.Impulse);
             Physics.gravity = new Vector3(0, -(PlayerGravity), 0);
             JumpCount -= 1;
+            IsJumping = true;
 
-            Jump1 = false;
-            DoubleJump = true;
-
+            //-------------Animation-----------------
             PlayerAC.SetBool("Jump", false);
             PlayerAC.SetBool("DoubleJump", true);
 
@@ -134,42 +137,40 @@ public class UnityChan_Move : MonoBehaviour
         if (IsGrounded && Joystick.InputVector!=new Vector3(0,0,0))
         {
             PlayerAC.SetBool("Idle", false);
-            PlayerAC.SetBool("Run", true);
+
+            if(Joystick.InputVector.x>-0.5f && Joystick.InputVector.x < 0.5f && Joystick.InputVector.z > -0.5f && Joystick.InputVector.z < 0.5f)
+            {
+                PlayerAC.SetBool("Run", false);
+                PlayerAC.SetBool("Walk", true);
+            }
+            else
+            {
+                PlayerAC.SetBool("Walk", false);
+                PlayerAC.SetBool("Run", true);
+            }
+           
 
         }
         else if(!IsGrounded && Joystick.InputVector != new Vector3(0, 0, 0))
         {
+            PlayerAC.SetBool("Walk", false);
             PlayerAC.SetBool("Run", false);
             PlayerAC.SetBool("Idle", false);
             //Jump
         }
         else
         {
+            PlayerAC.SetBool("Walk", false);
             PlayerAC.SetBool("Run", false);
             PlayerAC.SetBool("Idle", true);
         }
-        if (Jump1||DoubleJump)
+        /*if (IsJumping)
         {
             PlayerAC.SetBool("Run", false);
             PlayerAC.SetBool("Idle", false);
-        }
+        }*/
 
     }
 
-    private void Jump_Animation()
-    {
-        
-        if (Jump1)
-        {
-            PlayerAC.SetBool("DoubleJump", false);
-            PlayerAC.SetBool("Jump", true);
-            Debug.Log("jmup");
-        }
-        else if (DoubleJump)
-        {
-            PlayerAC.SetBool("Jump", false);
-            PlayerAC.SetBool("DoubleJump", true);
-
-        }
-    }
+   
 }
