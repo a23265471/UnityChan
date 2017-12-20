@@ -17,8 +17,8 @@ public class UnityChan_Move : MonoBehaviour
     public float PlayerGravity;
     private int JumpCount;
     private bool DoubleJump;
-    private bool IsJumping;
-
+    private bool Jump1;
+    
     bool IsGrounded = false;
     float distToGround;
     int FloorMask;
@@ -41,40 +41,27 @@ public class UnityChan_Move : MonoBehaviour
         float x = Joystick.Horizontal();
         float z = Joystick.Vertical();
 
-
-
         if (Physics.Raycast(transform.position, -Vector3.up, distToGround - 0.7f, FloorMask))
         {
             Debug.Log(distToGround);
             IsGrounded = true;
             JumpCount = 1;
+            Jump1 = DoubleJump = false;
             Debug.Log("Grounded");
-
-
-
-
-
-            //-------------------------Animation------------------------
-
-
-
-
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                rigi.AddForce(0, JumpHeight, 0, ForceMode.Impulse);
-            }
-            Turning();
             move(x, z);
+            Turning();
 
+            PlayerAC.SetBool("Jump", false);
+            PlayerAC.SetBool("DoubleJump", false);
         }
         else
         {
-            IsGrounded = false;
-
-
-
+            IsGrounded = false;            
             move(x, z);
+            Turning();
         }
+
+        Jump_Animation();
 
     }
 
@@ -92,14 +79,11 @@ public class UnityChan_Move : MonoBehaviour
             movement.Set(x, 0, z);
             movement = movement * Speed * Time.deltaTime;
             rigi.MovePosition(transform.position + movement);
-
         }
 
-
-
         //-----------------Animation----------------------
-
-
+        Move_Animation();
+        
 
     }
     private void Turning()
@@ -121,24 +105,25 @@ public class UnityChan_Move : MonoBehaviour
         {
             Debug.Log("Jump");
             rigi.AddForce(0, JumpHeight, 0, ForceMode.Impulse);
+          
+            Jump1 = true;
 
-            DoubleJump = true;
-            IsJumping = true;
-
-
+            PlayerAC.SetBool("Jump", true);
         }
         else if ((!IsGrounded && JumpCount == 1))
         {
-
-
             Debug.Log("DoubleJump");
             rigi.useGravity = false;
             rigi.useGravity = true;
             rigi.AddForce(0, DoubleJumpHeight, 0, ForceMode.Impulse);
             Physics.gravity = new Vector3(0, -(PlayerGravity), 0);
-            DoubleJump = false;
-            IsJumping = true;
             JumpCount -= 1;
+
+            Jump1 = false;
+            DoubleJump = true;
+
+            PlayerAC.SetBool("Jump", false);
+            PlayerAC.SetBool("DoubleJump", true);
 
         }
 
@@ -146,12 +131,45 @@ public class UnityChan_Move : MonoBehaviour
 
     private void Move_Animation()
     {
-        if (IsGrounded)
+        if (IsGrounded && Joystick.InputVector!=new Vector3(0,0,0))
         {
+            PlayerAC.SetBool("Idle", false);
             PlayerAC.SetBool("Run", true);
 
+        }
+        else if(!IsGrounded && Joystick.InputVector != new Vector3(0, 0, 0))
+        {
+            PlayerAC.SetBool("Run", false);
+            PlayerAC.SetBool("Idle", false);
+            //Jump
+        }
+        else
+        {
+            PlayerAC.SetBool("Run", false);
+            PlayerAC.SetBool("Idle", true);
+        }
+        if (Jump1||DoubleJump)
+        {
+            PlayerAC.SetBool("Run", false);
+            PlayerAC.SetBool("Idle", false);
         }
 
     }
 
+    private void Jump_Animation()
+    {
+        
+        if (Jump1)
+        {
+            PlayerAC.SetBool("DoubleJump", false);
+            PlayerAC.SetBool("Jump", true);
+            Debug.Log("jmup");
+        }
+        else if (DoubleJump)
+        {
+            PlayerAC.SetBool("Jump", false);
+            PlayerAC.SetBool("DoubleJump", true);
+
+        }
+    }
 }

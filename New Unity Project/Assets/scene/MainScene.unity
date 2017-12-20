@@ -331,8 +331,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 404432507}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 246.5, y: 154, z: 0}
-  m_LocalScale: {x: 0.61625, y: 0.61625, z: 0.61625}
+  m_LocalPosition: {x: 404, y: 252.5, z: 0}
+  m_LocalScale: {x: 1.01, y: 1.01, z: 1.01}
   m_Children:
   - {fileID: 2093570569}
   - {fileID: 923507052}
@@ -779,7 +779,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 923507051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 381, y: -249.89859, z: 0}
+  m_LocalPosition: {x: 381, y: -250, z: 0}
   m_LocalScale: {x: 0.87, y: 0.86999995, z: 0.86999995}
   m_Children:
   - {fileID: 651014158}
@@ -1063,11 +1063,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Joystick: {fileID: 2093570570}
-  Speed: 6
+  Speed: 4
   JumpSpeed: 5
-  JumpHeight: 8
-  DoubleJumpHeight: 10
-  PlayerGravity: 25
+  JumpHeight: 10
+  DoubleJumpHeight: 12
+  PlayerGravity: 30
 --- !u!136 &1051077903
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1517,7 +1517,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2093570568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -384.99902, y: -234.89761, z: 0}
+  m_LocalPosition: {x: -384.99902, y: -234.99902, z: 0}
   m_LocalScale: {x: 0.69998556, y: 0.69998616, z: 0.69998616}
   m_Children:
   - {fileID: 158929733}
