@@ -18,7 +18,7 @@ public class MainCameraController : MonoBehaviour {
 
         offset = transform.position - target.position;
         RotX= transform.rotation.x;
-        Debug.Log(RotX);
+       // Debug.Log(RotX);
     }
 
     // Update is called once per frame

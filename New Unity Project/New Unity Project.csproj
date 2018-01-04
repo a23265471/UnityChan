@@ -219,6 +219,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Player_Attack.cs" />
     <Compile Include="Assets\Script\joystick.cs" />
     <Compile Include="Assets\Script\MainCameraController.cs" />
     <Compile Include="Assets\Script\UnityChan_Move.cs" />
