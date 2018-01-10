@@ -21,17 +21,23 @@ public class Player_Attack : MonoBehaviour {
 
     }
 
-    ComboState combo_State;
-
+   
     private string Now_State;
+    private bool CanAttack;
     private int Count = 0;
     private Animator PlaerAC;
+    private Animation NowAnimation;
+    private IEnumerator Canattack;
 
     private void Awake()
     {
         PlaerAC = GetComponent<Animator>();
+
     }
-   
+   private void Start()
+    {
+        CanAttack = true;
+    }
 
     public IEnumerator Cancel_Attack()
     {
@@ -41,17 +47,23 @@ public class Player_Attack : MonoBehaviour {
         Count = 0;
        // PlaerAC.SetTrigger("ExitCombo");
     }
+    private IEnumerator Can_attack(string Now_Anim)
+    {
+        yield return new WaitForSeconds(NowAnimation[Now_Anim].time);
+
+
+    }
 
     public void Attack_A()
     {
 
-        if (Count == 0)
+        if (Count == 0 && CanAttack)
         {
             StopCoroutine("Cancel_Attack");
             StartCoroutine("Cancel_Attack");
             if (Now_State == null)
             {               
-                Now_State = combo_State.ToString();
+                Now_State = "Attack_A";
                 Debug.Log(Now_State);
 
                 PlaerAC.SetTrigger(Now_State);
@@ -65,9 +77,13 @@ public class Player_Attack : MonoBehaviour {
                 PlaerAC.SetTrigger(Now_State);
                 if (Now_State == "Attack_AAAA")
                 {
+                   
+                    CanAttack = false;
+                    Canattack = Can_attack("Attack_AAAA");
+                    StartCoroutine(Canattack);
                     Now_State = null;
                     StopCoroutine("Cancel_Attack");
-                   
+
                 }
                 
             }
