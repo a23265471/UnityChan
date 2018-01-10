@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnityChan_Move : MonoBehaviour
 {
-
+    public Player_Attack Player_attack;
     public joystick Joystick;
     private Vector3 movement;
     private Rigidbody rigi;
@@ -18,7 +18,7 @@ public class UnityChan_Move : MonoBehaviour
     public float DoubleJumpHeight;
     public float PlayerGravity;
     private int JumpCount;
-    private bool IsJumping;
+    public bool IsJumping;
     
 
     bool IsGrounded = false;
@@ -74,22 +74,27 @@ public class UnityChan_Move : MonoBehaviour
 
     private void move(float x, float z)
     {
-        if (!IsGrounded)
+        if (!Player_attack.IsAttack)
         {
-            movement.Set(x, 0, z);
-            movement = movement * JumpSpeed * Time.deltaTime;
-            rigi.MovePosition(transform.position + movement);
+            Debug.Log(Player_attack.IsAttack);
+            if (!IsGrounded)
+            {
+                movement.Set(x, 0, z);
+                movement = movement * JumpSpeed * Time.deltaTime;
+                rigi.MovePosition(transform.position + movement);
 
-        }
-        else
-        {
-            movement.Set(x, 0, z);
-            movement = movement * Speed * Time.deltaTime;
-            rigi.MovePosition(transform.position + movement);
-        }
+            }
+            else
+            {
+                movement.Set(x, 0, z);
+                movement = movement * Speed * Time.deltaTime;
+                rigi.MovePosition(transform.position + movement);
+            }
 
-        //-----------------Animation----------------------
-        Move_Animation();
+            //-----------------Animation----------------------
+            Move_Animation();
+        }
+       
         
 
     }
