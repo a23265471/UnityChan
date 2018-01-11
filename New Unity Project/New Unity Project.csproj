@@ -219,9 +219,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Player_Attack.cs" />
+    <Compile Include="Assets\AtiveFalse.cs" />
     <Compile Include="Assets\Script\joystick.cs" />
     <Compile Include="Assets\Script\MainCameraController.cs" />
+    <Compile Include="Assets\Script\ObjectPool.cs" />
+    <Compile Include="Assets\Script\Player_Attack.cs" />
     <Compile Include="Assets\Script\UnityChan_Move.cs" />
     <Compile Include="Assets\TaichiCharacterPack\Taichi\Scripts\EnemyAttack.cs" />
     <Compile Include="Assets\TaichiCharacterPack\Taichi\Scripts\EnemyHealth.cs" />
