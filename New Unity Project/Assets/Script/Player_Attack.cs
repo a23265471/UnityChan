@@ -16,6 +16,7 @@ public class Player_Attack : MonoBehaviour {
     private float CanPress_Interval;
     public float backSpeed;
     public float attackSpeed;
+    private float SlideSpeed;
 
     private Animator PlayerAC;
     public UnityChan_Move UnityChanMove;
@@ -71,6 +72,10 @@ public class Player_Attack : MonoBehaviour {
     private IEnumerator Can_attack(float Now_Anim)
     {
         yield return new WaitForSeconds(Now_Anim);
+        if (slide == true)
+        {
+            slide = false;
+        }
        
         CanAttack = true;
         IsAttack = false;
@@ -86,11 +91,11 @@ public class Player_Attack : MonoBehaviour {
     {
         if (slide)
         {
-            transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime * 1);
-            if (transform.position == movement)
-            {
-                slide = false;
-            }
+            
+           
+           
+            transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime * SlideSpeed);
+           
         }
         else if (Now_State == "Attack_AB")
         {
@@ -338,9 +343,9 @@ public class Player_Attack : MonoBehaviour {
         AnimExitTime = 2.3f;
         Canattack = StartCoroutine(Can_attack(AnimExitTime));
         Press_Interval = StartCoroutine(CanPressed(CanPress_Interval));
-
         movement = transform.position + transform.forward * 8;
         slide = true;
+
 
         PlayerAC.SetTrigger("Slide");
 
