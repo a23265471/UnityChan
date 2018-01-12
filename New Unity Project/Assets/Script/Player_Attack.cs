@@ -4,6 +4,8 @@ using UnityEngine;
 
 
 public class Player_Attack : MonoBehaviour {
+    public static Player_Attack playerAttack;
+
 
     public bool IsAttack;
     private string Now_State;
@@ -13,32 +15,37 @@ public class Player_Attack : MonoBehaviour {
     public bool CanPress;
     private float CanPress_Interval;
     public float backSpeed;
-    public bool attackB;
-    public float attackB_Speed;
+    public float attackSpeed;
 
     private Animator PlayerAC;
     public UnityChan_Move UnityChanMove;
-
     private Rigidbody rigi;
     private Vector3 movement;
-    public Transform Attack_AB_Transform;
+    private Vector3 attackMovement;
     
-
     private Coroutine Canattack ;
     private Coroutine Press_Interval;
+
+    public bool attackB;
+    public bool attackABB;
+    public bool attackAAB;
+    public bool attackAABB;
+    public bool slide;
 
     public ParticleSystem JumpAttack_Particle;
     public ParticleSystem BackAttack_Particle;
    // public ParticleSystem Attack_B_Particle;
 
     private GameObject Attack_B_obj;
+    private GameObject Attack_ABB_obt;
     private GameObject Attack_AAB_obt;
+    private GameObject Attack_AABB_obt;
 
     private void Awake()
     {
         PlayerAC = GetComponent<Animator>();
         rigi = GetComponent<Rigidbody>();
-        
+        playerAttack = this;
 
     }
    private void Start()
@@ -47,6 +54,8 @@ public class Player_Attack : MonoBehaviour {
         IsAttack = false;
         CanPress = true;
         attackB = false;
+        attackAAB = false;
+        slide = false;
     }
 
     public IEnumerator Cancel_Attack()
@@ -75,7 +84,15 @@ public class Player_Attack : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if (Now_State == "Attack_AB")
+        if (slide)
+        {
+            transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime * 1);
+            if (transform.position == movement)
+            {
+                slide = false;
+            }
+        }
+        else if (Now_State == "Attack_AB")
         {
 
             transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime * backSpeed);
@@ -83,14 +100,31 @@ public class Player_Attack : MonoBehaviour {
         else if (attackB)
         {
 
-            Attack_B_obj.transform.position = Vector3.Lerp(Attack_B_obj.transform.position, movement, Time.deltaTime * attackB_Speed);
-
+            Attack_B_obj.transform.position = Vector3.Lerp(Attack_B_obj.transform.position, attackMovement, Time.deltaTime * attackSpeed);
+            if (Attack_B_obj.transform.position == movement)
+            {
+                attackB = false;
+            }
+            
         }
-        else if(Now_State == "Attack_AAB")
+        else if (attackABB)
         {
-            Attack_AAB_obt.transform.position = Vector3.Lerp(Attack_AAB_obt.transform.position, movement, Time.deltaTime * attackB_Speed);
+            attackSpeed = 2f;
+            Attack_ABB_obt.transform.position = Vector3.Lerp(Attack_ABB_obt.transform.position, attackMovement, Time.deltaTime * attackSpeed);
+            Debug.Log(movement);
+            if (Attack_ABB_obt.transform.position == movement)
+            {
+                attackABB = false;
+            }
         }
-
+        else if (attackAABB)
+        {
+            Attack_AABB_obt.transform.position = Vector3.Lerp(Attack_AABB_obt.transform.position, attackMovement, Time.deltaTime * attackSpeed);
+            if (Attack_AABB_obt.transform.position == movement)
+            {
+                attackAABB = false;
+            }
+        }
     }
 
 
@@ -190,17 +224,26 @@ public class Player_Attack : MonoBehaviour {
                         BackAttack_Particle.Stop();
                         BackAttack_Particle.Play();
                     }
+                    else if(Now_State == "Attack_ABB")
+                    {
+                        Attack_ABB();
+
+                    }
 
                 }
                 else
                 {
                     if(Now_State == "Attack_AAB")
                     {
-
-
+                        Attack_AAB();
+                        CanPress_Interval = 0.3f;
                     }
                     
+                    else if(Now_State == "Attack_AABB")
+                    {
+                        Attack_AABB();
 
+                    }
 
 
 
@@ -240,20 +283,66 @@ public class Player_Attack : MonoBehaviour {
 
         Attack_B_obj.transform.position = transform.position + transform.forward * 1+new Vector3(0,0.9f,0);
         Attack_B_obj.SetActive(true);
-        movement = Attack_B_obj.transform.position + transform.forward * 5;
-        Debug.Log(movement);
+        attackMovement = Attack_B_obj.transform.position + transform.forward * 5;
+        
 
     }
     private void Attack_AAB()
     {
+        attackAAB = true;
         Attack_AAB_obt = ObjectPool.objectPool.GetAttack_AAB();
 
-        if (Attack_AAB_obt== null) return;
+        if (Attack_AAB_obt == null) return;
 
-
-        Attack_AAB_obt.transform.position = transform.position + transform.forward * 1 + new Vector3(0, 0.9f, 0);
+        Attack_AAB_obt.transform.rotation = transform.rotation;
+        Attack_AAB_obt.transform.position = transform.position + new Vector3(0, 0.9f, 0);
         Attack_AAB_obt.SetActive(true);
-        movement = Attack_AAB_obt.transform.position + transform.forward * 5;
+        
+       
+    }
+    private void Attack_AABB()
+    {
+        attackAABB = true;
+        Attack_AABB_obt = ObjectPool.objectPool.GetAttack_AABB();
+
+        if (Attack_AABB_obt == null) return;
+       
+
+        Attack_AABB_obt.transform.position = transform.position + transform.forward * 0.5f + new Vector3(0, 2, 0);
+        Attack_AABB_obt.transform.rotation = transform.rotation;
+        Attack_AABB_obt.SetActive(true);
+        attackMovement = Attack_AABB_obt.transform.position + transform.forward *6;
+        
+    }
+
+    private void Attack_ABB()
+    {
+        attackABB = true;
+        Attack_ABB_obt = ObjectPool.objectPool.GetAttack_ABB();
+
+        if (Attack_ABB_obt == null) return;
+        Debug.Log(Attack_ABB_obt.transform.position);
+
+        Attack_ABB_obt.transform.position = transform.position + transform.forward * 0.5f + new Vector3(0, 0.9f, 0);
+        Attack_ABB_obt.SetActive(true);
+        attackMovement = Attack_ABB_obt.transform.position + transform.forward * 10;
+       
+    }
+
+    public void Slide()
+    {
+        Now_State = null;
+       
+        CanAttack = false;
+        IsAttack = true;
+        AnimExitTime = 2.3f;
+        Canattack = StartCoroutine(Can_attack(AnimExitTime));
+        Press_Interval = StartCoroutine(CanPressed(CanPress_Interval));
+
+        movement = transform.position + transform.forward * 8;
+        slide = true;
+
+        PlayerAC.SetTrigger("Slide");
 
     }
 

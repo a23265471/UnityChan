@@ -2384,6 +2384,8 @@ GameObject:
   - component: {fileID: 614537686}
   - component: {fileID: 614537688}
   - component: {fileID: 614537687}
+  - component: {fileID: 614537690}
+  - component: {fileID: 614537689}
   m_Layer: 5
   m_Name: Kick
   m_TagString: Untagged
@@ -2443,6 +2445,77 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 614537685}
+--- !u!114 &614537689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 614537685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1051077907}
+          m_MethodName: Slide
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
+--- !u!114 &614537690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 614537685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 614537687}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &651014157
 GameObject:
   m_ObjectHideFlags: 0
@@ -4303,19 +4376,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400224, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.09374654
+      value: -0.093746535
       objectReference: {fileID: 0}
     - target: {fileID: 400224, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6978552
+      value: 0.6978551
       objectReference: {fileID: 0}
     - target: {fileID: 400224, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.70746905
+      value: 0.707469
       objectReference: {fileID: 0}
     - target: {fileID: 400224, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.06080675
+      value: 0.060806744
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
@@ -4407,10 +4480,13 @@ MonoBehaviour:
   CanAttack: 0
   CanPress: 0
   backSpeed: 2
-  attackB: 0
-  attackB_Speed: 2
+  attackSpeed: 1
   UnityChanMove: {fileID: 1051077902}
-  Attack_AB_Transform: {fileID: 2145945431}
+  attackB: 0
+  attackABB: 0
+  attackAAB: 0
+  attackAABB: 0
+  slide: 0
   JumpAttack_Particle: {fileID: 2147030136}
   BackAttack_Particle: {fileID: 131447194}
 --- !u!1001 &1075834365
@@ -7360,6 +7436,34 @@ Prefab:
       propertyPath: Attack_AAB
       value: 
       objectReference: {fileID: 1750666723644040, guid: 201462002a2ae7942b75db57aa7bdb9b,
+        type: 2}
+    - target: {fileID: 114230576126368304, guid: 024b7d38dc4f7ad45b7b2185366550ff,
+        type: 2}
+      propertyPath: PooledAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114230576126368304, guid: 024b7d38dc4f7ad45b7b2185366550ff,
+        type: 2}
+      propertyPath: PooledAmount_Useless
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114230576126368304, guid: 024b7d38dc4f7ad45b7b2185366550ff,
+        type: 2}
+      propertyPath: Attack_AABB
+      value: 
+      objectReference: {fileID: 1958415439830688, guid: 558adef752dc40e4dbb0cf7599bd5a43,
+        type: 2}
+    - target: {fileID: 114230576126368304, guid: 024b7d38dc4f7ad45b7b2185366550ff,
+        type: 2}
+      propertyPath: Attack_ABB
+      value: 
+      objectReference: {fileID: 1341645624845282, guid: 1790e6f8c5e754c409a86d2149a12511,
+        type: 2}
+    - target: {fileID: 114230576126368304, guid: 024b7d38dc4f7ad45b7b2185366550ff,
+        type: 2}
+      propertyPath: Attack_AAAB
+      value: 
+      objectReference: {fileID: 1207128714432410, guid: c85a6878546941b4398ea8bcc3600092,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 024b7d38dc4f7ad45b7b2185366550ff, type: 2}

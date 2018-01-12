@@ -78,7 +78,7 @@ public class UnityChan_Move : MonoBehaviour
     {
         if (!Player_attack.IsAttack&&!playerHealth.isDead)
         {
-            Debug.Log(Player_attack.IsAttack);
+           
             if (!IsGrounded)
             {
                 movement.Set(x, 0, z);

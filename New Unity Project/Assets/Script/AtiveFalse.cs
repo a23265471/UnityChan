@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class AtiveFalse : MonoBehaviour {
 
+    
+
+
     private void OnEnable()
     {
-        Invoke("SetAtiveFalse",2);
+        float destroyTime;
+
+        if (Player_Attack.playerAttack.attackAAB||Player_Attack.playerAttack.attackABB)
+        { destroyTime = 3; }
+        else
+        { destroyTime = 2; }
+
+        Invoke("SetAtiveFalse", destroyTime);
     }
     void SetAtiveFalse()
     {
+        Player_Attack.playerAttack.attackAAB = false;
         gameObject.SetActive(false);
     }
     private void OnDisable()
