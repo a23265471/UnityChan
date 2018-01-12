@@ -33,16 +33,17 @@ public class EnemyMovement : MonoBehaviour {
     void Update (){
         if (enemyHealth.currentHealth > 0 /* && playerHealth.currentHealth > 0 */)
         {
-            if (Vector3.Distance(transform.position, player.position) < seeRange && Vector3.Distance(transform.position, player.position) > attackRange)
+            if (Vector3.Distance(transform.position, player.position) < seeRange && Vector3.Distance(transform.position, player.position) > attackRange )
             {
                 Move();
                 nav.SetDestination(player.position);
 
             } 
-            else if(Vector3.Distance(transform.position, player.position) <= attackRange|| Vector3.Distance(transform.position, player.position) >= seeRange)
+            else if(Vector3.Distance(transform.position, player.position) <= attackRange|| Vector3.Distance(transform.position, player.position) >= seeRange )
             {
                
                 UnMove();
+
                 anim.SetTrigger("Attack");
             }
             

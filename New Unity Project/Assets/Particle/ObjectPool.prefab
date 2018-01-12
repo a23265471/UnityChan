@@ -52,4 +52,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Attack_B: {fileID: 1666309028310162, guid: 67523d05573cdaa4a9fb8a485ec61281, type: 2}
+  Attack_ABB: {fileID: 1341645624845282, guid: 1790e6f8c5e754c409a86d2149a12511, type: 2}
+  Attack_AAB: {fileID: 1750666723644040, guid: 201462002a2ae7942b75db57aa7bdb9b, type: 2}
+  Attack_AABB: {fileID: 1958415439830688, guid: 558adef752dc40e4dbb0cf7599bd5a43,
+    type: 2}
+  Attack_AAAB: {fileID: 1521087094854860, guid: c85a6878546941b4398ea8bcc3600092,
+    type: 2}
   PooledAmount: 5
+  PooledAmount_Useless: 0
+  Attack_Bs: []
+  Attack_ABBs: []
+  Attack_AABs: []
+  Attack_AABBs: []
+  Attack_AAABs: []

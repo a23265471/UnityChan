@@ -26,36 +26,9 @@ public class EnemyAttack : MonoBehaviour
         anim = GetComponent<Animator>();
        
     }
-
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == player )
-        {
-            playerInRange = true;
-            
-        }
-    }
-
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject == player )
-        {
-            playerInRange = false;
-        }
-    }
-
-
+    
     void Update()
     {
-
-        timer += Time.deltaTime;
-
-        if (timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0 && Vector3.Distance(transform.position, playerPos.position) <= enemyMovement.attackRange)
-        {
-            Attack();
-        }
 
        if (playerHealth.currentHealth <= 0)
         {
@@ -72,7 +45,7 @@ public class EnemyAttack : MonoBehaviour
        if (playerHealth.currentHealth > 0 )//怪物攻擊
         {
             anim.SetTrigger("Attack");
-            playerHealth.TakeDamage(attackDamage);
+           
         }
      
     }

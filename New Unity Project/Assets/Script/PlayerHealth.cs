@@ -9,9 +9,11 @@ public class PlayerHealth : MonoBehaviour {
     public Slider healthSlider;
     public bool isDead;
     bool damaged;
+    private Animator PlayerAC;
 	// Use this for initialization
 	void Awake () {
         currentHealth = startingHealth;
+        PlayerAC = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -24,6 +26,7 @@ public class PlayerHealth : MonoBehaviour {
 	}
     private void Death() {
         isDead = true;
-        
+        PlayerAC.SetTrigger("Die");
+        GameManager.Game_manager.GameOver();
     }
 }

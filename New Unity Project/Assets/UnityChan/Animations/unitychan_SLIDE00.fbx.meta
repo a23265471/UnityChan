@@ -2,7 +2,7 @@ fileFormatVersion: 2
 guid: a3657ebe445392e44a81a7b112b9cf0c
 timeCreated: 18446744011573954816
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: ambientLight1
     100002: ambientLight2
@@ -607,10 +607,12 @@ ModelImporter:
     13700034: shirts_sode_BK
     13700036: uwagi_BK
     13700038: cheek
+  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -628,6 +630,7 @@ ModelImporter:
       and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -787,6 +790,25 @@ ModelImporter:
             tangentMode: 0
           preInfinity: 3
           postInfinity: 3
+          rotationOrder: 0
+      - name: Speed
+        curve:
+          serializedVersion: 2
+          curve:
+          - serializedVersion: 2
+            time: 0.0041676844
+            value: 0.46758485
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - serializedVersion: 2
+            time: 1
+            value: 2.493747
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          preInfinity: 2
+          postInfinity: 2
           rotationOrder: 0
       events: []
       transformMask:

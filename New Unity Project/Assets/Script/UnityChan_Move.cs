@@ -41,9 +41,7 @@ public class UnityChan_Move : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-       /* GetComponent<CapsuleCollider>().height = PlayerAC.GetFloat("colli_Height");
-        GetComponent<CapsuleCollider>().center = new Vector3(0, PlayerAC.GetFloat("colli_pos_y"), PlayerAC.GetFloat("colli_pos_z"));*/
-
+       
         float x = Joystick.Horizontal();
         float z = Joystick.Vertical();
 
@@ -120,7 +118,7 @@ public class UnityChan_Move : MonoBehaviour
 
     public void Jump()
     {
-        if (IsGrounded)
+        if (IsGrounded && !playerHealth.isDead)
         {
             //Debug.Log("Jump");
             rigi.AddForce(0, JumpHeight, 0, ForceMode.Impulse);
