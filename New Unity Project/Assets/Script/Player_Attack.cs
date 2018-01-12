@@ -32,6 +32,7 @@ public class Player_Attack : MonoBehaviour {
    // public ParticleSystem Attack_B_Particle;
 
     private GameObject Attack_B_obj;
+    private GameObject Attack_AAB_obt;
 
     private void Awake()
     {
@@ -76,14 +77,18 @@ public class Player_Attack : MonoBehaviour {
     {
         if (Now_State == "Attack_AB")
         {
-            
-            transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime*backSpeed);
+
+            transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime * backSpeed);
         }
         else if (attackB)
         {
-           
+
             Attack_B_obj.transform.position = Vector3.Lerp(Attack_B_obj.transform.position, movement, Time.deltaTime * attackB_Speed);
-           
+
+        }
+        else if(Now_State == "Attack_AAB")
+        {
+            Attack_AAB_obt.transform.position = Vector3.Lerp(Attack_AAB_obt.transform.position, movement, Time.deltaTime * attackB_Speed);
         }
 
     }
@@ -189,6 +194,16 @@ public class Player_Attack : MonoBehaviour {
                 }
                 else
                 {
+                    if(Now_State == "Attack_AAB")
+                    {
+
+
+                    }
+                    
+
+
+
+
                     StopCoroutine(Canattack);
                     AnimExitTime = 0.8f;
                 }
@@ -229,6 +244,17 @@ public class Player_Attack : MonoBehaviour {
         Debug.Log(movement);
 
     }
+    private void Attack_AAB()
+    {
+        Attack_AAB_obt = ObjectPool.objectPool.GetAttack_AAB();
 
+        if (Attack_AAB_obt== null) return;
+
+
+        Attack_AAB_obt.transform.position = transform.position + transform.forward * 1 + new Vector3(0, 0.9f, 0);
+        Attack_AAB_obt.SetActive(true);
+        movement = Attack_AAB_obt.transform.position + transform.forward * 5;
+
+    }
 
 }

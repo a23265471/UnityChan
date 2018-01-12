@@ -28,7 +28,7 @@ public class EnemyHealth : MonoBehaviour {
          healthPos.LookAt(Camera.main.transform.position);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int amount) //怪物被打
     {
         currentHealth -= amount;
         healthBar.fillAmount = currentHealth / startingHealth;

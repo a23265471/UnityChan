@@ -6,12 +6,14 @@ public class UnityChan_Move : MonoBehaviour
 {
     public Player_Attack Player_attack;
     public joystick Joystick;
+    public PlayerHealth playerHealth;
     private Vector3 movement;
     private Rigidbody rigi;
     private CapsuleCollider PlayerCollider;
     private Animator PlayerAC;
     public Vector3 LookAtPoint;
     private Quaternion FixedRotation;
+    
     public float Speed;
     public float JumpSpeed;
     public float JumpHeight;
@@ -74,7 +76,7 @@ public class UnityChan_Move : MonoBehaviour
 
     private void move(float x, float z)
     {
-        if (!Player_attack.IsAttack)
+        if (!Player_attack.IsAttack&&!playerHealth.isDead)
         {
             Debug.Log(Player_attack.IsAttack);
             if (!IsGrounded)

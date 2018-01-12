@@ -9,7 +9,7 @@ public class EnemyAttack : MonoBehaviour
     Transform playerPos;
     Animator anim;
     GameObject player;
-   // PlayerHealth playerHealth;
+    PlayerHealth playerHealth;
     EnemyHealth enemyHealth;
     EnemyMovement enemyMovement;
     bool playerInRange;
@@ -20,7 +20,7 @@ public class EnemyAttack : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerPos =player.transform;
-     // playerHealth = player.GetComponent<PlayerHealth>();
+        playerHealth = player.GetComponent<PlayerHealth>();
         enemyHealth = GetComponent<EnemyHealth>();
         enemyMovement = GetComponent<EnemyMovement>();
         anim = GetComponent<Animator>();
@@ -57,11 +57,11 @@ public class EnemyAttack : MonoBehaviour
             Attack();
         }
 
-    /*    if (playerHealth.currentHealth <= 0)
+       if (playerHealth.currentHealth <= 0)
         {
             anim.SetTrigger("PlayerDie");
         }
-     */
+    
     }
 
 
@@ -69,11 +69,11 @@ public class EnemyAttack : MonoBehaviour
     {
         timer = 0f;
 
-     /*   if (playerHealth.currentHealth > 0 )
+       if (playerHealth.currentHealth > 0 )//怪物攻擊
         {
             anim.SetTrigger("Attack");
             playerHealth.TakeDamage(attackDamage);
         }
-      */
+     
     }
 }
